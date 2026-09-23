@@ -1,0 +1,79 @@
+name: Rebuild
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  pull-requests: write
+  deployments: write
+  
+concurrency:
+  group: "pages"
+
+jobs:
+  rebuild:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-22.04
+    env:
+      JVM_OPTS: -Xmx3200m
+      JDK_JAVA_OPTIONS: --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v6.0.0
+        with:
+          node-version: 16
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          
+      - name: Checkout
+        uses: actions/checkout@v6-beta
+      
+      - name: Setup
+        run: |
+          sudo apt-get update
+          sudo apt-get install pkg-config libcairo2-dev libpango1.0-dev libssl-dev libjpeg62-dev libgif-dev
+          npm set progress=false
+          which gulp || npm install -g gulp-cli
+
+      - name: Install NPM Dependencies
+        run: npm ci
+      - run: gulp jshint
+      - run: gulp minify
+      - run: gulp test
+      - run: gulp zip
+       
+      - name: Upload built-dist
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: built-dist
+          path: dist
+          
+      - name: Checkout to develop-builds
+        uses: actions/checkout@v6-beta
+        with:
+          ref: develop-builds
+      
+      - name: Clear out things
+        run: |
+          rm -rf dist/*
+          
+      - name: Download built-dist
+        uses: actions/download-artifact@v6.0.0
+        with:
+          name: built-dist
+          path: dist/
+      
+      - name: Commit
+        uses: EndBug/add-and-commit@v9.1.1
+        with:
+          message: ${{ github.event.head_commit.message }}
+          committer_name: GitHub Actions
+          committer_email: actions@github.com
