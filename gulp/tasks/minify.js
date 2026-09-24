@@ -30,9 +30,6 @@ gulp.task('minify', ['build'], function() {
             'dist/paper-full.js',
             'dist/paper-core.js'
         ])
-        .pipe(babel({
-            presets: ['es2015']
-        }))
         .pipe(uglify(uglifyOptions))
         .pipe(rename({
             suffix: '.min'
