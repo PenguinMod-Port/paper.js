@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Wed Sep 23 22:29:33 2026 +0100
+ * Date: Thu Sep 24 09:34:44 2026 +0100
  *
  ***
  *
@@ -14809,6 +14809,11 @@ new function() {
 		var exporter = exporters[item._class],
 			node = exporter && exporter(item, options);
 		if (node) {
+			if (item.name) {
+				var title = SvgElement.create('title');
+				title.textContent = item.name;
+				node.appendChild(title);
+			}
 			var onExport = options.onExport;
 			if (onExport)
 				node = onExport(item, node, options) || node;
@@ -15395,6 +15400,11 @@ new function() {
 			settings.insertItems = insertItems;
 			settings.applyMatrix = applyMatrix;
 			if (item) {
+				var title = Array.from(node.childNodes).find(function(v) { return v.tagName === 'TITLE'; });
+				if (title) {
+					item.name = title.textContent;
+				}
+
 				if (isElement && !(item instanceof Group))
 					item = applyAttributes(item, node, isRoot);
 				var onImport = options.onImport;
