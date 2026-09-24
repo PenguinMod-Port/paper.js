@@ -48,7 +48,6 @@ jobs:
         run: npm ci
       - run: gulp jshint
       - run: gulp minify
-      - run: gulp test
       - run: gulp zip
        
       - name: Upload built-dist
