@@ -11,7 +11,6 @@
  */
 
 var gulp = require('gulp'),
-    babel = require('gulp-babel'),
     rename = require('gulp-rename'),
     fs = require('fs'),
     uglify = require('gulp-uglify');
