@@ -722,9 +722,11 @@ new function() {
             settings.applyMatrix = applyMatrix;
             if (item) {
                 // pm: naming support
-                for (var node of childNodes) {
-                    console.log(node);
-                }
+				for (var v of node.childNodes) {
+					if (v.tagName === 'title') {
+						item.name = v.textContent;
+					}
+				}
 
                 // Do not apply attributes if this is a #document node.
                 // See importGroup() for an explanation of filtering for Group:
