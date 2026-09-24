@@ -300,9 +300,6 @@ new function() {
             parent = !isRoot && item.getParent(),
             style = [];
 
-        if (item._name != null)
-            attrs.id = item._name;
-
         Base.each(SvgStyles, function(entry) {
             // Get a given style only if it differs from the value on the parent
             // (A layer or group which can have style values in SVG).
@@ -425,9 +422,9 @@ new function() {
             node = exporter && exporter(item, options);
         if (node) {
             // pm: naming support
-            if (item.name) {
+            if (item._name != null) {
                 var title = SvgElement.create('title');
-                title.textContent = item.name;
+                title.textContent = item._name;
                 node.appendChild(title);
             }
             
