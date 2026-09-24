@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Thu Sep 24 16:17:10 2026 +0100
+ * Date: Thu Sep 24 16:27:24 2026 +0100
  *
  ***
  *
@@ -14715,9 +14715,6 @@ new function() {
 			parent = !isRoot && item.getParent(),
 			style = [];
 
-		if (item._name != null)
-			attrs.id = item._name;
-
 		Base.each(SvgStyles, function(entry) {
 			var get = entry.get,
 				type = entry.type,
@@ -14812,9 +14809,9 @@ new function() {
 		var exporter = exporters[item._class],
 			node = exporter && exporter(item, options);
 		if (node) {
-			if (item.name) {
+			if (item._name != null) {
 				var title = SvgElement.create('title');
-				title.textContent = item.name;
+				title.textContent = item._name;
 				node.appendChild(title);
 			}
 			var onExport = options.onExport;
