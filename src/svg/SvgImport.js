@@ -722,7 +722,7 @@ new function() {
             settings.applyMatrix = applyMatrix;
             if (item) {
                 // pm: naming support
-                let title = Array.from(node.childNodes).find(v => v.tagName === 'TITLE');
+                var title = Array.from(node.childNodes).find(v => v.tagName === 'TITLE');
                 if (title) {
                     item.name = title.textContent;
                 }

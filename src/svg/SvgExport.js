@@ -426,7 +426,7 @@ new function() {
         if (node) {
             // pm: naming support
             if (item.name) {
-                let title = SvgElement.create('title');
+                var title = SvgElement.create('title');
                 title.textContent = item.name;
                 node.appendChild(title);
             }
