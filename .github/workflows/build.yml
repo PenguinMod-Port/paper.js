@@ -47,8 +47,7 @@ jobs:
       - name: Install NPM Dependencies
         run: npm ci
       - run: gulp jshint
-      - run: gulp minify
-      - run: gulp zip
+      - run: gulp build
        
       - name: Upload built-dist
         uses: actions/upload-artifact@v5.0.0
