@@ -424,6 +424,13 @@ new function() {
         var exporter = exporters[item._class],
             node = exporter && exporter(item, options);
         if (node) {
+            // pm: naming support
+            if (item.name) {
+                let title = SvgElement.create('title');
+                title.textContent = item.name;
+                node.appendChild(title);
+            }
+            
             // Support onExportItem callback, to provide mechanism to handle
             // special attributes (e.g. inkscape:transform-center)
             var onExport = options.onExport;

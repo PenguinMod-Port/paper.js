@@ -721,6 +721,12 @@ new function() {
             settings.insertItems = insertItems;
             settings.applyMatrix = applyMatrix;
             if (item) {
+                // pm: naming support
+                let title = Array.from(node.childNodes).find(v => v.tagName === 'TITLE');
+                if (title) {
+                    item.name = title.textContent;
+                }
+
                 // Do not apply attributes if this is a #document node.
                 // See importGroup() for an explanation of filtering for Group:
                 if (isElement && !(item instanceof Group))
