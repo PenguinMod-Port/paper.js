@@ -11,6 +11,7 @@
  */
 
 var gulp = require('gulp'),
+    babel = require('gulp-babel'),
     rename = require('gulp-rename'),
     fs = require('fs'),
     uglify = require('gulp-uglify');
@@ -29,6 +30,9 @@ gulp.task('minify', ['build'], function() {
             'dist/paper-full.js',
             'dist/paper-core.js'
         ])
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(uglify(uglifyOptions))
         .pipe(rename({
             suffix: '.min'
