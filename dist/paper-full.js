@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Thu Sep 24 09:34:44 2026 +0100
+ * Date: Thu Sep 24 16:08:39 2026 +0100
  *
  ***
  *
@@ -15403,9 +15403,8 @@ new function() {
 			settings.insertItems = insertItems;
 			settings.applyMatrix = applyMatrix;
 			if (item) {
-				var title = Array.from(node.childNodes).find(function(v) { return v.tagName === 'TITLE'; });
-				if (title) {
-					item.name = title.textContent;
+				for (var node of childNodes) {
+					console.log(node);
 				}
 
 				if (isElement && !(item instanceof Group))
