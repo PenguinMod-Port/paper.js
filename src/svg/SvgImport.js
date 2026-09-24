@@ -722,9 +722,8 @@ new function() {
             settings.applyMatrix = applyMatrix;
             if (item) {
                 // pm: naming support
-                var title = Array.from(node.childNodes).find(function(v) { return v.tagName === 'TITLE'; });
-                if (title) {
-                    item.name = title.textContent;
+                for (let node of childNodes) {
+                    console.log(node)
                 }
 
                 // Do not apply attributes if this is a #document node.
