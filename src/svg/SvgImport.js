@@ -722,7 +722,7 @@ new function() {
             settings.applyMatrix = applyMatrix;
             if (item) {
                 // pm: naming support
-                for (let node of childNodes) {
+                for (var node of childNodes) {
                     console.log(node)
                 }
 
