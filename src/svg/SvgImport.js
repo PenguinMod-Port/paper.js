@@ -723,7 +723,7 @@ new function() {
             if (item) {
                 // pm: naming support
                 for (var node of childNodes) {
-                    console.log(node)
+                    console.log(node);
                 }
 
                 // Do not apply attributes if this is a #document node.
