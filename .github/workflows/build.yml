@@ -50,27 +50,32 @@ jobs:
       - run: gulp build
        
       - name: Upload built-dist
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/develop'
         uses: actions/upload-artifact@v5.0.0
         with:
           name: built-dist
           path: dist
           
       - name: Checkout to develop-builds
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/develop'
         uses: actions/checkout@v6-beta
         with:
           ref: develop-builds
       
       - name: Clear out things
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/develop'
         run: |
           rm -rf dist/*
           
       - name: Download built-dist
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/develop'
         uses: actions/download-artifact@v6.0.0
         with:
           name: built-dist
           path: dist/
       
       - name: Commit
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/develop'
         uses: EndBug/add-and-commit@v9.1.1
         with:
           message: ${{ github.event.head_commit.message }}
